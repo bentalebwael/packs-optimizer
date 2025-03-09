@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  # PostgreSQL database
+  db:
+    image: postgres:14-alpine
+    restart: always
+    environment:
+      POSTGRES_USER: packapp
+      POSTGRES_PASSWORD: packapp_password
+      POSTGRES_DB: packoptimization
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U packapp -d packoptimization"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Pack Optimization Application
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "8080:8080"
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      - SERVER_PORT=8080
+      - RATE_LIMITER=enabled
+      - RATE_LIMITER_MAX_REQUESTS=10
+      - DATABASE_URL=postgres://packapp:packapp_password@db:5432/packoptimization?sslmode=disable
+    volumes:
+      - ./static:/app/static
+      - ./migrations:/app/migrations
+
+volumes:
+  postgres_data:

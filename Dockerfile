@@ -29,6 +29,9 @@ COPY migrations/ ./migrations/
 RUN adduser -D appuser
 USER appuser
 
+# Define environment variable with a default value (optional)
+ENV DATABASE_URL=""
+
 # Expose port
 EXPOSE 8080
 

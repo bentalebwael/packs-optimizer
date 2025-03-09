@@ -1,4 +1,4 @@
-# Pack Optimization
+# Pack Optimizer
 
 ## Project Overview
 
@@ -38,6 +38,23 @@ Note that rule #2 takes precedence over rule #3, meaning we prioritize minimizin
 | 501           | 3 x 250             | More packs than necessary |
 | 12001         | 3 x 5000            | More items than necessary |
 
+## Setup and Running
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/pack-calculator.git
+   cd pack-calculator
+   ```
+
+2. Run docker compose:
+   ```bash
+   docker-compose up -d
+   ```
+
+3. Access:
+   - Web UI: http://localhost:8080
+   - API Documentation: http://localhost:8080/swagger/index.html
+   
 ## Features
 
 - RESTful API for calculating optimal pack combinations
@@ -117,23 +134,6 @@ PORT=8080
 RATE_LIMIT_ENABLED=true
 RATE_LIMIT_REQUESTS=100
 ```
-
-## Setup and Running
-
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/yourusername/pack-calculator.git
-   cd pack-calculator
-   ```
-
-2. Run docker compose:
-   ```bash
-   docker-compose up -d
-   ```
-
-3. Access:
-   - Web UI: http://localhost:8080
-   - API Documentation: http://localhost:8080/swagger/index.html
 
 ## Running Tests
 
